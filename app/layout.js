@@ -1,10 +1,9 @@
-import "./globals.css";
-import { Poppins } from "next/font/google";
+"use client";
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: "200",
-});
+import { useEffect, useState } from "react";
+import "./globals.css";
+import Loading from "./components/Loading";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const metadata = {
   title: "Andros",
@@ -12,9 +11,36 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, [1000]);
+  }, []);
+
   return (
     <html lang="en">
-      <body className={poppins.style.fontFamily}>{children}</body>
+      <body>
+        <div className="overflow-hidden">
+          <AnimatePresence>
+            {loading && (
+              <motion.div
+                layout
+                animate={{ opacity: 0 }}
+                initial={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 3,
+                }}
+                className="fixed z-50 w-full h-screen"
+              >
+                <Loading />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <div>{children}</div>
+        </div>
+      </body>
     </html>
   );
 }
