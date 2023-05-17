@@ -3,7 +3,7 @@ import React from "react";
 import DogeLogo from "../../public/assets/images/doge.png";
 import TrxLogo from "../../public/assets/images/trx.png";
 
-function Withdraw({ coin }) {
+function Withdraw({ coin, setModal }) {
   const CoinsUseLogo = () => {
     if (coin === "doge")
       return (

@@ -10,7 +10,7 @@ import {
   BsPower,
   BsShieldLock,
 } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Profile({ setCoin, coin }) {
   const [btnSwap, setBtnSwap] = useState(false);
@@ -18,6 +18,25 @@ function Profile({ setCoin, coin }) {
   const [btnHCode, setBtnHCode] = useState(false);
   const [btnHWd, setBtnHWd] = useState(false);
   const [btnChangePass, setBtnChangePass] = useState(false);
+  const [swapCoin1, setSwapCoin1] = useState("doge");
+  const [swapCoin2, setSwapCoin2] = useState("trx");
+
+  const handleSwap1 = (value) => {
+    setSwapCoin1(value);
+    if (value === "doge") {
+      return setSwapCoin2("trx");
+    } else {
+      return setSwapCoin2("doge");
+    }
+  };
+  const handleSwap2 = (value) => {
+    setSwapCoin2(value);
+    if (value === "doge") {
+      return setSwapCoin1("trx");
+    } else {
+      return setSwapCoin1("doge");
+    }
+  };
 
   const CoinsUseLogo = () => {
     if (coin === "doge")
@@ -35,6 +54,14 @@ function Profile({ setCoin, coin }) {
         <Image loading="lazy" src={TrxLogo} alt="logo" width={25} height={25} />
       );
   };
+
+  useEffect(() => {
+    if (swapCoin1 === "doge") return setSwapCoin2("trx");
+    if (swapCoin1 === "trx") return setSwapCoin2("doge");
+    if (swapCoin2 === "doge") return setSwapCoin1("trx");
+    if (swapCoin2 === "trx") return setSwapCoin1("doge");
+  }, [swapCoin1, swapCoin2]);
+
   return (
     <div className="w-full border border-primary p-[0.5rem] rounded-[0.25rem] space-y-2">
       <div className="w-full border border-primary  text-[0.875rem] flex items-center rounded-[0.25rem] overflow-hidden">
@@ -65,23 +92,25 @@ function Profile({ setCoin, coin }) {
           <CoinsUseLogo />
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-full flex flex-col">
         <table className="w-full text-primary text-[14px]">
-          <tr>
-            <th className="text-left font-medium">Username </th>
-            <td>: </td>
-            <td>Pegedev</td>
-          </tr>
-          <tr>
-            <th className="text-left font-medium">ID </th>
-            <td>: </td>
-            <td>101593</td>
-          </tr>
-          <tr>
-            <th className="text-left font-medium">Email </th>
-            <td>: </td>
-            <td>pege.dev7878@gmail.com</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th className="text-left font-medium">Username </th>
+              <td>: </td>
+              <td>Pegedev</td>
+            </tr>
+            <tr>
+              <th className="text-left font-medium">ID </th>
+              <td>: </td>
+              <td>101593</td>
+            </tr>
+            <tr>
+              <th className="text-left font-medium">Email </th>
+              <td>: </td>
+              <td>pege.dev7878@gmail.com</td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <button

@@ -4,25 +4,94 @@ import React, { useState } from "react";
 import Logo from "../../public/assets/images/logo.png";
 import { BsShieldLock } from "react-icons/bs";
 import { AnimatePresence, motion } from "framer-motion";
+import { IoClose } from "react-icons/io5";
 export default function Page() {
   const [login, setLogin] = useState(false);
   const [register, setRegister] = useState(false);
+  const [bgClicked, setBgClicked] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  const handleBgClicked = () => {
+    setBgClicked(true);
+    setTimeout(() => {
+      setBgClicked(false);
+    }, [250]);
+  };
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full min-h-screen p-[0.5rem]">
-        <div className="flex items-center justify-center mx-auto w-full h-full max-w-[33.75rem] select-none">
-          <div className="flex items-center justify-center space-x-4">
+      <AnimatePresence>
+        {modal && (
+          <motion.div
+            layout
+            initial={{
+              opacity: 0,
+              y: -100,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -100,
+            }}
+            transition={{
+              duration: 0.2,
+              ease: "easeInOut",
+            }}
+            className="fixed z-50 w-full min-h-screen flex items-center justify-center select-none  "
+          >
+            <div
+              onClick={handleBgClicked}
+              className="absolute backdrop-blur-[4px] bg-black/50 w-full h-screen z-10 "
+            />
+            <div
+              className={`absolute z-50 max-w-[33.75rem] w-full  flex items-center justify-center  ${
+                bgClicked && "scale-105"
+              } transition-all ease-in-out duration-200`}
+            >
+              <div className="relative w-full bg-[#181616] py-6 px-3 rounded-[0.625rem] flex flex-col items-center justify-center space-y-4 border border-primary">
+                <button
+                  onClick={() => setModal(false)}
+                  className="absolute top-0 right-0 m-5 w-10 h-10 text-center rounded-full hover:bg-white/20 text-white inline-flex items-center justify-center transition ease-in duration-300"
+                >
+                  <IoClose size={25} />
+                </button>
+                <div className="">
+                  <Image src={Logo} alt="logo" height={100} width={100} />
+                </div>
+                <div className="w-full border border-primary flex items-center justify-center text-[14px] rounded-[0.25rem] overflow-hidden">
+                  <label className="whitespace-nowrap px-[8px] py-[4px] text-primary uppercase text-[14px]">
+                    Email :
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full px-[8px] py-[4px] focus:outline-none text-[14px]"
+                    placeholder="email@example.com"
+                  />
+                </div>
+                <button className="hover:bg-primary hover:text-black transition-all ease-linear duration-300  px-2 py-1 w-full block items-center justify-center rounded-[0.25rem] text-[0.8rem] border border-primary text-primary">
+                  RESET PASSWORD
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <div className="flex flex-col items-center justify-center w-full min-h-screen p-[0.5rem] ">
+        <div className="flex items-center justify-center mx-auto w-full h-full max-w-[33.75rem] select-none  ">
+          <div className="flex items-center justify-center space-x-4 w-full">
             <div className="w-1/2">
               <Image
                 src={Logo}
                 alt="Logo"
-                width={500}
-                height={500}
+                height={150}
+                width={150}
                 loading="lazy"
               />
             </div>
             <div className="w-full flex flex-col items-center justify-center space-y-6">
-              <h3 className="block text-primary w-full text-[1.5rem] font-bold text-center whitespace-nowrap">
+              <h3 className="block text-primary w-full text-[1.7rem] font-semibold text-center whitespace-nowrap">
                 Andros Login - Register
               </h3>
               <div className="w-full flex flex-col items-center justify-center space-y-4 px-[0.75rem]">
@@ -94,12 +163,15 @@ export default function Page() {
                           placeholder="**********"
                         />
                       </div>
-                      <div className="inline-flex items-center justify-center my-[0.5rem] text-primary text-[14px] italic uppercase space-x-1">
+                      <button
+                        onClick={() => setModal(true)}
+                        className="inline-flex items-center justify-center py-[0.5rem] text-primary text-[14px] italic uppercase space-x-1"
+                      >
                         <span>
                           <BsShieldLock />
                         </span>
                         <span>Reset Password</span>
-                      </div>
+                      </button>
                       <button className="block w-full border border-primary text-primary rounded-[0.25rem] text-[14px] uppercase px-[8px] py-[4px]">
                         <a href="/">Login Now</a>
                       </button>

@@ -9,7 +9,7 @@ export default function Loading() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, [5000]);
+    }, [3000]);
   }, []);
   return (
     <div className="fixed  z-50 w-full min-h-screen bg-black flex items-center  justify-center">
@@ -19,7 +19,7 @@ export default function Loading() {
           <div
             className={`${
               !loading ? "w-0" : "w-full"
-            } h-full bg-gradient-to-b from-primary to-primary/20 transition-all ease-in-out duration-300`}
+            } h-full bg-primary transition-all ease-in-out duration-300`}
           />
         </div>
       </div>

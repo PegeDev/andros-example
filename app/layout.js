@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
                 initial={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{
-                  duration: 3,
+                  duration: 1,
                 }}
                 className="fixed z-50 w-full h-screen"
               >

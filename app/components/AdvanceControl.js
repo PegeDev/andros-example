@@ -23,9 +23,10 @@ function AdvanceControl() {
           </div>
           <select
             id="underline_select"
+            defaultValue={"random"}
             className="text-center p-[0.3rem] w-full text-[14px] text-primary border border-primary bg-transparent  appearance-none focus:outline-none peer"
           >
-            <option className="text-primary bg-black" selected value="random">
+            <option className="text-primary bg-black" value="random">
               Random
             </option>
             <option className="text-primary bg-black" value="high">

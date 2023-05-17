@@ -22,6 +22,7 @@ import Modal from "./components/Modal";
 import ProfitSection from "./components/ProfitSection";
 import AdvanceControl from "./components/AdvanceControl";
 import Profile from "./components/Profile";
+import Html5scanner from "./components/Html5scanner";
 
 export default function Home() {
   const [modal, setModal] = useState(false);
@@ -33,9 +34,8 @@ export default function Home() {
   const [btnTrophy, setBtnTrophy] = useState(false);
   const [btnProfile, setBtnProfile] = useState(false);
   const [coin, setCoin] = useState("doge");
-  const [swapCoin1, setSwapCoin1] = useState("doge");
-  const [swapCoin2, setSwapCoin2] = useState("trx");
-
+  const [modalScan, setModalScan] = useState(false);
+  const [resultScan, setResultScan] = useState(null);
   const navbarItems = [
     {
       name: "desktop",
@@ -137,30 +137,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    if (swapCoin1 === "doge") return setSwapCoin2("trx");
-    if (swapCoin1 === "trx") return setSwapCoin2("doge");
-    if (swapCoin2 === "doge") return setSwapCoin1("trx");
-    if (swapCoin2 === "trx") return setSwapCoin1("doge");
-  }, [swapCoin1, swapCoin2]);
-
-  const handleSwap1 = (value) => {
-    setSwapCoin1(value);
-    if (value === "doge") {
-      return setSwapCoin2("trx");
-    } else {
-      return setSwapCoin2("doge");
-    }
-  };
-  const handleSwap2 = (value) => {
-    setSwapCoin2(value);
-    if (value === "doge") {
-      return setSwapCoin1("trx");
-    } else {
-      return setSwapCoin1("doge");
-    }
-  };
-
   return (
     <>
       <AnimatePresence>
@@ -185,10 +161,40 @@ export default function Home() {
             }}
             className="fixed z-50 w-full min-h-screen flex items-center justify-center select-none  "
           >
-            <Modal message={""} title={""} />
+            <Modal message={""} title={""} setModal={setModal} />
           </motion.div>
         )}
       </AnimatePresence>
+      <AnimatePresence>
+        {modalScan && (
+          <motion.div
+            layout
+            initial={{
+              opacity: 0,
+              y: -100,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -100,
+            }}
+            transition={{
+              duration: 0.2,
+              ease: "easeInOut",
+            }}
+            className="fixed z-50 w-full min-h-screen flex items-center justify-center select-none  "
+          >
+            <Html5scanner
+              setModalScan={setModalScan}
+              setResultScan={setResultScan}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="flex flex-col items-center justify-center w-full min-h-screen p-[0.5rem]">
         <div className="flex items-center justify-center mx-auto w-full h-full max-w-[33.75rem] select-none">
           <div className="border border-primary rounded-[0.5rem] w-full divide-y divide-primary relative">
@@ -286,7 +292,10 @@ export default function Home() {
                     }}
                     className="overflow-hidden"
                   >
-                    <Deposit />
+                    <Deposit
+                      resultScan={resultScan}
+                      setModalScan={setModalScan}
+                    />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -305,7 +314,7 @@ export default function Home() {
                     }}
                     className="overflow-hidden"
                   >
-                    <Withdraw coin={coin} />
+                    <Withdraw coin={coin} setModal={setModal} />
                   </motion.div>
                 )}
               </AnimatePresence>

@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Logo from "../../public/assets/images/logo.png";
+import { useState } from "react";
 
-function Modal({ title, message }) {
+function Modal({ title, message, setModal }) {
   const [bgClicked, setBgClicked] = useState(false);
   const handleBgClicked = () => {
     setBgClicked(true);
@@ -9,6 +10,7 @@ function Modal({ title, message }) {
       setBgClicked(false);
     }, [250]);
   };
+  console.log({ bgClicked });
   return (
     <>
       <div
@@ -16,20 +18,20 @@ function Modal({ title, message }) {
         className="absolute backdrop-blur-[4px] bg-black/50 w-full h-screen z-10 "
       />
       <div
-        className={`absolute z-50 max-w-[33.75rem]  w-full  px-8 flex items-center justify-center ${
+        className={`absolute z-50 max-w-[33.75rem] w-full px-8 flex items-center justify-center ${
           bgClicked && "scale-105"
         } transition-all ease-in-out duration-200`}
       >
-        <div className="w-full bg-[#181616] py-4 px-2 rounded-[0.625rem] flex flex-col items-center justify-center space-y-2">
+        <div className="w-full bg-[#181616] py-4 px-2 rounded-[0.625rem] flex flex-col items-center justify-center space-y-2  border border-primary ">
           <div className="">
             <Image src={Logo} alt="logo" height={100} width={100} />
           </div>
           <div className="w-full flex flex-col items-center justify-center">
             <h3 className="w-full text-center capitalize text-primary font-bold text-[1rem]">
-              {title}
+              {title ? title : ""}
             </h3>
             <p className="w-full text-center text-primary text-[0.8rem]">
-              {message}
+              {message ? message : ""}
             </p>
           </div>
           <button
