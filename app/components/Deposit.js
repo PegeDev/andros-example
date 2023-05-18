@@ -24,7 +24,7 @@ function Deposit({ setModalScan, resultScan }) {
                 type="text"
                 placeholder="Your Code"
                 onChange={(e) => setInputReedem(e.target.value)}
-                value={resultScan !== undefined ? resultScan : inputReedem}
+                value={inputReedem}
                 className="w-full h-full focus:outline-none p-[0.3rem] text-center"
               />
             </div>

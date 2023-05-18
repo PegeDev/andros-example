@@ -64,7 +64,7 @@ export function ModalScanRedeem({ show, close, code }) {
   }
 
   const openCamera = useCallback(async () => {
-    if (html5QrCode) {
+    if (Html5Qrcode) {
       if (html5QrCode.isScanning) {
         html5QrCode.stop();
         setHtml5QrCode([]);
@@ -72,8 +72,6 @@ export function ModalScanRedeem({ show, close, code }) {
         setHtml5QrCode(new Html5Qrcode("reader"));
         getCameraId();
       }
-    } else {
-      setHtml5QrCode(new Html5Qrcode("reader"));
     }
   }, [html5QrCode]);
 
