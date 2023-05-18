@@ -84,7 +84,7 @@ export default function Page() {
             <div className="w-1/2">
               <Image
                 src={Logo}
-                alt="Logo"
+                alt="logo"
                 height={150}
                 width={150}
                 loading="lazy"

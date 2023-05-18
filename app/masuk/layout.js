@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "./globals.css";
-import Loading from "./components/Loading";
+import Loading from "../components/Loading";
 import { AnimatePresence, motion } from "framer-motion";
-import Head from "next/head";
 
 export default function RootLayout({ children }) {
   const [loading, setLoading] = useState(true);
@@ -16,9 +14,6 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <Head>
-        <title>My page title</title>
-      </Head>
       <body>
         <div className="overflow-hidden">
           <AnimatePresence>
